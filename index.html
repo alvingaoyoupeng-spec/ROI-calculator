@@ -305,7 +305,8 @@
             </p>
             <p>
                 <strong class="text-[#334155]">3. Payback Period Formula:</strong><br>
-                Payback Period = (Product Price &times; Device Units) / [ (Gross Revenue &times; Profit Margin / 100) &minus; Platform Fee &times; Device Units &minus; Transaction Fee &times; Device Units &minus; Cellular Data Fee &times; Device Units &minus; POS Device Rental Fee &times; Device Units ]
+                Payback Period = (Product Price &times; Device Units) / Net Profit <br>
+                <span class="text-[10px] text-[#94a3b8] block mt-0.5 ml-3">※ Where Platform, Cellular Data, and POS Rental Fees scale with Device Units, while Transaction Fees scale strictly with sales volume.</span>
             </p>
         </div>
 
@@ -474,7 +475,7 @@
             // ==========================================
             const currentHahaModel = modelSelect.value;
             const hahaProductPrice = productDatabase[currentHahaModel].price;
-            const hahaTotalCapEx = hahaProductPrice * deviceUnits; // 产品总价公式
+            const hahaTotalCapEx = hahaProductPrice * deviceUnits;
 
             document.getElementById('hahaPrice').textContent = '$' + hahaProductPrice.toLocaleString();
             document.getElementById('hahaTotalPrice').textContent = '$' + hahaTotalCapEx.toLocaleString();
@@ -484,8 +485,9 @@
             const hahaPlatform = 15 * deviceUnits;
             const hahaData = 15 * deviceUnits;
             const hahaPosRental = 10 * deviceUnits;
-            // 交易费公式（按要求同时乘以设备数）
-            const hahaTx = 30 * (itemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100) * deviceUnits;
+            
+            // 【优化修改】：交易费独立出来，不再乘以设备数
+            const hahaTx = 30 * (itemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
 
             document.getElementById('hahaPlatformFee').textContent = '$' + Math.round(hahaPlatform).toLocaleString();
             document.getElementById('hahaTxFee').textContent = '$' + Math.round(hahaTx).toLocaleString();
@@ -511,7 +513,7 @@
             document.getElementById('compHeaderTitle').textContent = currentCompName;
 
             const compProductPrice = parseFloat(manualCompPriceInput.value) || 0;
-            const compTotalCapEx = compProductPrice * deviceUnits; // 竞企产品总价
+            const compTotalCapEx = compProductPrice * deviceUnits;
 
             document.getElementById('compPrice').textContent = '$' + compProductPrice.toLocaleString();
             document.getElementById('compTotalPrice').textContent = '$' + compTotalCapEx.toLocaleString();
@@ -523,7 +525,9 @@
             const compPlatform = compProfile.platform * deviceUnits;
             const compPosRental = compProfile.posRental * deviceUnits;
             const compData = compProfile.getDataFee(traffic, conversion) * deviceUnits;
-            const compTx = compProfile.getTxFee(itemPrice, itemsPerOrder, traffic, conversion) * deviceUnits;
+            
+            // 【优化修改】：交易费独立出来，不再乘以设备数
+            const compTx = compProfile.getTxFee(itemPrice, itemsPerOrder, traffic, conversion);
 
             document.getElementById('compPlatformFee').textContent = '$' + Math.round(compPlatform).toLocaleString();
             document.getElementById('compTxFee').textContent = '$' + Math.round(compTx).toLocaleString();
