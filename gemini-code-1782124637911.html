@@ -51,7 +51,7 @@
         }
     </style>
 </head>
-<body class="bg-[#f8fafc] text-[#334155] min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans antialiased">
+<body class="bg-[#f8fafc] text-[#334155] min-h-screen py-10 px-4 sm:px-6 lg:px-8 font-sans antialiased">
 
     <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-sm border border-[#e2e8f0] overflow-hidden">
         
@@ -59,17 +59,17 @@
             <div class="flex justify-between items-center">
                 <div>
                     <h1 class="text-lg font-semibold tracking-wider text-[#f8fafc] uppercase">Commercial Payback & TCO Matrix</h1>
-                    <p class="text-xs text-[#94a3b8] mt-0.5 font-medium tracking-wide">COMPETITIVE VALUATION & MARGIN RECOVERY ANALYSIS</p>
+                    <p class="text-xs text-[#94a3b8] mt-0.5 font-medium tracking-wide">COMPETITIVE BENCHMARKING & ROI TIMELINE MODEL</p>
                 </div>
                 <div class="hidden sm:block font-mono text-[10px] bg-[#1e293b] text-[#cbd5e1] border border-[#334155] px-2.5 py-1 rounded tracking-widest">
-                    CONFIDENTIAL / INTERNAL USE ONLY
+                    CONFIDENTIAL / EXECUTIVE REPORTING
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#e2e8f0] bg-white">
+        <div class="grid grid-cols-1 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-[#e2e8f0] bg-white">
             
-            <div class="p-6 lg:col-span-3 space-y-5 bg-white">
+            <div class="p-6 space-y-5 bg-white">
                 <div class="border-b border-[#f1f5f9] pb-2">
                     <h2 class="text-xs font-bold text-[#0f172a] uppercase tracking-widest">HAHA Sales Inputs</h2>
                 </div>
@@ -88,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="py-1"><hr class="border-[#f1f5f9]"></div>
+                <div class="py-0.5"><hr class="border-[#f1f5f9]"></div>
 
                 <div class="space-y-1.5">
                     <div class="flex justify-between items-baseline">
@@ -151,7 +151,7 @@
                 </div>
             </div>
 
-            <div class="p-6 lg:col-span-3 bg-[#f8fafc]/40 flex flex-col justify-between border-r-0">
+            <div class="p-6 bg-[#f8fafc]/40 flex flex-col justify-between">
                 <div class="space-y-4">
                     <div class="border-b border-[#e2e8f0] pb-2">
                         <h2 class="text-xs font-bold text-[#0f172a] uppercase tracking-widest">HAHA Financial Summary</h2>
@@ -172,31 +172,31 @@
                             <span class="block text-[9px] font-bold text-[#475569] uppercase tracking-widest border-b border-[#cbd5e1] pb-0.5 mb-1">Monthly Cost Overheads</span>
                             <div class="flex justify-between text-[#64748b]">
                                 <span>Platform Fee:</span>
-                                <span id="hahaPlatformFee" class="font-mono text-[#334155] font-semibold">$15</span>
+                                <span class="font-mono text-[#334155] font-semibold">$15</span>
                             </div>
                             <div class="flex justify-between text-[#64748b]">
                                 <span>Transaction Fee:</span>
                                 <span id="hahaTxFee" class="font-mono text-[#334155] font-semibold">$0</span>
                             </div>
                             <div class="flex justify-between text-[#64748b]">
-                                <span>Data Infrastructure:</span>
-                                <span id="hahaDataFee" class="font-mono text-[#334155] font-semibold">$15</span>
+                                <span>Cellular Data Fee:</span>
+                                <span class="font-mono text-[#334155] font-semibold">$15</span>
                             </div>
                             <div class="flex justify-between text-[#64748b]">
-                                <span>POS Hardware Rental:</span>
-                                <span id="hahaPosRental" class="font-mono text-[#334155] font-semibold">$10</span>
+                                <span>POS Device Rental:</span>
+                                <span class="font-mono text-[#334155] font-semibold">$10</span>
                             </div>
                         </div>
 
                         <div class="bg-[#eff6ff] p-4 rounded border-l-4 border-[#2563eb] shadow-2xs">
-                            <span class="block text-[9px] font-bold text-[#2563eb] uppercase tracking-widest mb-0.5">Payback Horizon</span>
+                            <span class="block text-[9px] font-bold text-[#2563eb] uppercase tracking-widest mb-0.5">Payback Period</span>
                             <span id="hahaPayback" class="text-xl font-black text-[#1e40af] font-mono">0 Months</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="p-6 lg:col-span-3 bg-[#f8fafc]/90 flex flex-col justify-between border-l-0">
+            <div class="p-6 bg-[#f8fafc]/90 flex flex-col justify-between">
                 <div class="space-y-4">
                     <div class="border-b border-[#e2e8f0] pb-2">
                         <h2 id="compHeaderTitle" class="text-xs font-bold text-red-700 uppercase tracking-widest">Competitor</h2>
@@ -224,24 +224,24 @@
                                 <span id="compTxFee" class="font-mono text-[#334155] font-semibold">$0</span>
                             </div>
                             <div class="flex justify-between text-[#64748b]">
-                                <span>Data Infrastructure:</span>
+                                <span>Cellular Data Fee:</span>
                                 <span id="compDataFee" class="font-mono text-[#334155] font-semibold">$0</span>
                             </div>
                             <div class="flex justify-between text-[#64748b]">
-                                <span>POS Hardware Rental:</span>
+                                <span>POS Device Rental:</span>
                                 <span id="compPosRental" class="font-mono text-[#334155] font-semibold">$0</span>
                             </div>
                         </div>
 
                         <div class="bg-[#fef2f2] p-4 rounded border-l-4 border-red-600 shadow-2xs">
-                            <span class="block text-[9px] font-bold text-red-600 uppercase tracking-widest mb-0.5">Payback Horizon</span>
+                            <span class="block text-[9px] font-bold text-red-600 uppercase tracking-widest mb-0.5">Payback Period</span>
                             <span id="compPayback" class="text-xl font-black text-red-900 font-mono">0 Months</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="p-6 lg:col-span-3 space-y-5 bg-white">
+            <div class="p-6 space-y-5 bg-white">
                 <div class="border-b border-[#f1f5f9] pb-2">
                     <h2 class="text-xs font-bold text-[#0f172a] uppercase tracking-widest">Competitor Inputs</h2>
                 </div>
@@ -263,11 +263,26 @@
                 <div>
                     <label class="block text-[10px] font-bold text-[#64748b] uppercase tracking-wider mb-1.5">Product Price ($)</label>
                     <input type="number" id="manualCompPrice" value="3500" min="0" class="w-full bg-[#f8fafc] border border-[#cbd5e1] rounded text-[#0f172a] font-semibold px-2.5 py-2 focus:ring-1 focus:ring-[#0f172a] focus:border-[#0f172a] focus:outline-none text-xs transition-all">
-                    <p class="text-[10px] text-[#94a3b8] mt-1">Enter upfront price manually to refresh matrix maps.</p>
+                    <p class="text-[10px] text-[#94a3b8] mt-1.5 leading-relaxed">Enter competitive hardware procurement pricing manually to update evaluation models.</p>
                 </div>
             </div>
 
         </div>
+
+        <div class="bg-[#f8fafc] border-t border-[#e2e8f0] px-8 py-5 text-[11px] text-[#64748b] space-y-2">
+            <div class="text-[#475569] font-bold uppercase tracking-wider text-xs border-b border-[#e2e8f0] pb-1 mb-1.5">
+                Valuation Methodology & Calculation Glossary
+            </div>
+            <p>
+                <strong class="text-[#334155]">1. Gross Revenue (Monthly) Formula:</strong><br>
+                Gross Revenue = Daily Foot Traffic &times; (Traffic Conversion Rate / 100) &times; Average Item Price &times; Items Per Order &times; 30 Days
+            </p>
+            <p>
+                <strong class="text-[#334155]">2. Payback Period Formula:</strong><br>
+                Payback Period = (Product Price &times; Device Units) / [ (Gross Revenue &times; Profit Margin / 100) &minus; Platform Fee &minus; Transaction Fee &minus; Cellular Data Fee &minus; POS Device Rental Fee ]
+            </p>
+        </div>
+
     </div>
 
     <script>
@@ -287,7 +302,7 @@
         const defaultProduct = "Mini 360";
 
         // =========================================================================
-        // 【竞企资费政策矩阵定义（包含特定条件下的复杂公式回调机制）】
+        // 【竞企资费配置数据库机制】
         // =========================================================================
         const competitorProfiles = {
             "Micromart": {
@@ -360,7 +375,7 @@
         };
 
         // =========================================================================
-        // 【系统初始化与 DOM 节点挂载】
+        // 【UI 节点初始化及事件绑定】
         // =========================================================================
         const modelSelect = document.getElementById('productModel');
         Object.keys(productDatabase).forEach(model => {
@@ -379,7 +394,7 @@
         const competitorSelect = document.getElementById('competitorName');
         const manualCompPriceInput = document.getElementById('manualCompPrice');
 
-        // 【设备数增量控制逻辑组件】
+        // 【设备数量步进控制逻辑】
         document.getElementById('btnMinus').addEventListener('click', () => {
             let val = parseInt(deviceUnitsInput.value) || 1;
             if (val > 1) { deviceUnitsInput.value = val - 1; calculate(); }
@@ -395,7 +410,7 @@
             calculate();
         });
 
-        // 【滑块节点颜色轨道自适应动态同步渲染】
+        // 【滑块颜色填充渲染机制】
         function updateSliderTrackBackground(el) {
             const min = el.min || 0;
             const max = el.max || 100;
@@ -419,7 +434,7 @@
         function calculate() {
             updateLabels();
 
-            // 1. 获取共享输入元数据
+            // 1. 获取共享业务自变量
             const deviceUnits = parseInt(deviceUnitsInput.value) || 1;
             const traffic = parseFloat(elements.dailyTraffic.value);
             const conversion = parseFloat(elements.conversionRate.value); 
@@ -427,27 +442,25 @@
             const itemsPerOrder = parseFloat(elements.itemsPerOrder.value);
             const margin = parseFloat(elements.profitMargin.value);
 
-            // 2. 共享基础月总营业额总线公式
+            // 2. 共享基础月度总营业额主公式
             const globalGrossRevenue = traffic * (conversion / 100) * itemPrice * itemsPerOrder * 30;
 
             // ==========================================
-            // 【引擎 A : HAHA 品牌专属财务看板计算】
+            // 【引擎 A : HAHA 财务计算结构】
             // ==========================================
             const currentHahaModel = modelSelect.value;
             const hahaProductPrice = productDatabase[currentHahaModel].price;
             document.getElementById('hahaPrice').textContent = '$' + hahaProductPrice.toLocaleString();
             document.getElementById('hahaGrossRevenue').textContent = '$' + Math.round(globalGrossRevenue).toLocaleString();
 
-            // 契约项固化资费政策
             const hahaPlatform = 15;
             const hahaData = 15;
             const hahaPosRental = 10;
-            // 交易代收费用公式：30 * (Average item price * Items per order * 5.95% + 0.00) * Daily foot traffic * Traffic conversion rate (注意：百分比处理)
             const hahaTx = 30 * (itemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
 
             document.getElementById('hahaTxFee').textContent = '$' + Math.round(hahaTx).toLocaleString();
 
-            // 测算扣费后HAHA纯运营利润及终极回本周转率
+            // 净分母测算 (扣除变动与固定OpEx费用)
             const hahaNetDenominator = (globalGrossRevenue * (margin / 100)) - hahaPlatform - hahaTx - hahaData - hahaPosRental;
             if (hahaNetDenominator <= 0 || isNaN(hahaNetDenominator)) {
                 document.getElementById('hahaPayback').textContent = 'N/A';
@@ -457,7 +470,7 @@
             }
 
             // ==========================================
-            // 【引擎 B : 竞争对手特定资费差异化模型计算】
+            // 【引擎 B : 竞争对手差异化财务核算】
             // ==========================================
             const currentCompName = competitorSelect.value;
             document.getElementById('compHeaderTitle').textContent = currentCompName;
@@ -466,20 +479,19 @@
             document.getElementById('compPrice').textContent = '$' + compProductPrice.toLocaleString();
             document.getElementById('compGrossRevenue').textContent = '$' + Math.round(globalGrossRevenue).toLocaleString();
 
-            // 索引竞企配置器解析对应的动态表达式
+            // 条件索引读取竞企特定的动态表达式
             const compProfile = competitorProfiles[currentCompName];
             const compPlatform = compProfile.platform;
             const compPosRental = compProfile.posRental;
             const compData = compProfile.getDataFee(traffic, conversion);
             const compTx = compProfile.getTxFee(itemPrice, itemsPerOrder, traffic, conversion);
 
-            // 更新竞企变动费率DOM视图展现层（对数值采用通用四舍五入取整呈现）
+            // 实时将变动结果同步到界面看板 (使用四舍五入取整)
             document.getElementById('compPlatformFee').textContent = '$' + Math.round(compPlatform).toLocaleString();
             document.getElementById('compTxFee').textContent = '$' + Math.round(compTx).toLocaleString();
             document.getElementById('compDataFee').textContent = '$' + Math.round(compData).toLocaleString();
             document.getElementById('compPosRental').textContent = '$' + Math.round(compPosRental).toLocaleString();
 
-            // 测算竞企纯运营利润及回本周期
             const compNetDenominator = (globalGrossRevenue * (margin / 100)) - compPlatform - compTx - compData - compPosRental;
             if (compNetDenominator <= 0 || isNaN(compNetDenominator)) {
                 document.getElementById('compPayback').textContent = 'N/A';
@@ -489,7 +501,7 @@
             }
         }
 
-        // 统一注入驱动触发器监听器
+        // 绑定动作触发器
         modelSelect.addEventListener('change', calculate);
         competitorSelect.addEventListener('change', calculate);
         manualCompPriceInput.addEventListener('input', calculate);
@@ -497,7 +509,7 @@
             elements[id].addEventListener('input', calculate);
         });
 
-        // 首次加载初始化数据总线
+        // 首次挂载初始化
         calculate();
     </script>
 </body>
