@@ -117,7 +117,7 @@
                 <div class="space-y-1.5">
                     <div class="flex justify-between items-baseline">
                         <span class="text-[10px] font-bold text-[#475569] uppercase tracking-wider">Average item price</span>
-                        <span id="v_itemPrice" class="text-xs font-bold text-[#0f172a]">$3</span>
+                        <span id="v_itemPrice" class="text-xs font-bold text-[#0f172a]">3</span>
                     </div>
                     <input type="range" id="itemPrice" min="0" max="15" step="0.5" value="3" class="cursor-pointer">
                     <div class="flex justify-between text-[9px] text-[#94a3b8] font-medium px-0.5">
@@ -190,7 +190,7 @@
 
                         <div class="bg-[#eff6ff] p-4 rounded border-l-4 border-[#2563eb] shadow-2xs">
                             <span class="block text-[9px] font-bold text-[#2563eb] uppercase tracking-widest mb-0.5">Payback Period</span>
-                            <span id="hahaPayback" class="text-xl font-black text-[#1e40af] font-mono">0 Months</span>
+                            <span id="hahaPayback" class="text-xl font-black text-[#1e40af] font-mono">0.0 Months</span>
                         </div>
                     </div>
                 </div>
@@ -235,7 +235,7 @@
 
                         <div class="bg-[#fef2f2] p-4 rounded border-l-4 border-red-600 shadow-2xs">
                             <span class="block text-[9px] font-bold text-red-600 uppercase tracking-widest mb-0.5">Payback Period</span>
-                            <span id="compPayback" class="text-xl font-black text-red-900 font-mono">0 Months</span>
+                            <span id="compPayback" class="text-xl font-black text-red-900 font-mono">0.0 Months</span>
                         </div>
                     </div>
                 </div>
@@ -466,7 +466,8 @@
                 document.getElementById('hahaPayback').textContent = 'N/A';
             } else {
                 const hahaPayback = (hahaProductPrice * deviceUnits) / hahaNetDenominator;
-                document.getElementById('hahaPayback').textContent = Math.round(hahaPayback).toLocaleString() + ' Months';
+                // 【优化优化】：输出调整为保留 1 位小数
+                document.getElementById('hahaPayback').textContent = hahaPayback.toFixed(1) + ' Months';
             }
 
             // ==========================================
@@ -486,7 +487,7 @@
             const compData = compProfile.getDataFee(traffic, conversion);
             const compTx = compProfile.getTxFee(itemPrice, itemsPerOrder, traffic, conversion);
 
-            // 实时将变动结果同步到界面看板 (使用四舍五入取整)
+            // 实时将变动结果同步到界面看板 (其余OpEx开销项依旧使用四舍五入取整呈现)
             document.getElementById('compPlatformFee').textContent = '$' + Math.round(compPlatform).toLocaleString();
             document.getElementById('compTxFee').textContent = '$' + Math.round(compTx).toLocaleString();
             document.getElementById('compDataFee').textContent = '$' + Math.round(compData).toLocaleString();
@@ -497,7 +498,8 @@
                 document.getElementById('compPayback').textContent = 'N/A';
             } else {
                 const compPayback = (compProductPrice * deviceUnits) / compNetDenominator;
-                document.getElementById('compPayback').textContent = Math.round(compPayback).toLocaleString() + ' Months';
+                // 【优化优化】：输出调整为保留 1 位小数
+                document.getElementById('compPayback').textContent = compPayback.toFixed(1) + ' Months';
             }
         }
 
