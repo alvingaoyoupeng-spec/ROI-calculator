@@ -117,7 +117,7 @@
                 <div class="space-y-1.5">
                     <div class="flex justify-between items-baseline">
                         <span class="text-[10px] font-bold text-[#475569] uppercase tracking-wider">Average item price</span>
-                        <span id="v_itemPrice" class="text-xs font-bold text-[#0f172a]">3</span>
+                        <span id="v_itemPrice" class="text-xs font-bold text-[#0f172a]">$3</span>
                     </div>
                     <input type="range" id="itemPrice" min="0" max="15" step="0.5" value="3" class="cursor-pointer">
                     <div class="flex justify-between text-[9px] text-[#94a3b8] font-medium px-0.5">
@@ -158,9 +158,15 @@
                     </div>
 
                     <div class="space-y-2.5">
-                        <div class="bg-white p-3 rounded border border-[#e2e8f0]">
-                            <span class="block text-[9px] font-bold text-[#94a3b8] uppercase tracking-wider mb-0.5">Base Product Price</span>
-                            <span id="hahaPrice" class="text-base font-semibold text-[#0f172a] font-mono">$-</span>
+                        <div class="bg-white p-3 rounded border border-[#e2e8f0] grid grid-cols-2 gap-2">
+                            <div>
+                                <span class="block text-[9px] font-bold text-[#94a3b8] uppercase tracking-wider mb-0.5">Base Price</span>
+                                <span id="hahaPrice" class="text-sm font-semibold text-[#475569] font-mono">$-</span>
+                            </div>
+                            <div>
+                                <span class="block text-[9px] font-bold text-[#0f172a] uppercase tracking-wider mb-0.5">Total CapEx</span>
+                                <span id="hahaTotalPrice" class="text-sm font-bold text-[#0f172a] font-mono">$-</span>
+                            </div>
                         </div>
 
                         <div class="bg-white p-3 rounded border border-[#e2e8f0]">
@@ -172,7 +178,7 @@
                             <span class="block text-[9px] font-bold text-[#475569] uppercase tracking-widest border-b border-[#cbd5e1] pb-0.5 mb-1">Monthly Cost Overheads</span>
                             <div class="flex justify-between text-[#64748b]">
                                 <span>Platform Fee:</span>
-                                <span class="font-mono text-[#334155] font-semibold">$15</span>
+                                <span id="hahaPlatformFee" class="font-mono text-[#334155] font-semibold">$0</span>
                             </div>
                             <div class="flex justify-between text-[#64748b]">
                                 <span>Transaction Fee:</span>
@@ -180,12 +186,17 @@
                             </div>
                             <div class="flex justify-between text-[#64748b]">
                                 <span>Cellular Data Fee:</span>
-                                <span class="font-mono text-[#334155] font-semibold">$15</span>
+                                <span id="hahaDataFee" class="font-mono text-[#334155] font-semibold">$0</span>
                             </div>
                             <div class="flex justify-between text-[#64748b]">
                                 <span>POS Device Rental:</span>
-                                <span class="font-mono text-[#334155] font-semibold">$10</span>
+                                <span id="hahaPosRental" class="font-mono text-[#334155] font-semibold">$0</span>
                             </div>
+                        </div>
+
+                        <div class="bg-white p-3 rounded border border-[#e2e8f0]">
+                            <span class="block text-[9px] font-bold text-[#059669] uppercase tracking-wider mb-0.5">Net Profit (Monthly)</span>
+                            <span id="hahaNetProfit" class="text-base font-bold text-[#047857] font-mono">$0</span>
                         </div>
 
                         <div class="bg-[#eff6ff] p-4 rounded border-l-4 border-[#2563eb] shadow-2xs">
@@ -203,9 +214,15 @@
                     </div>
 
                     <div class="space-y-2.5">
-                        <div class="bg-white p-3 rounded border border-[#e2e8f0]">
-                            <span class="block text-[9px] font-bold text-[#94a3b8] uppercase tracking-wider mb-0.5">Base Product Price</span>
-                            <span id="compPrice" class="text-base font-semibold text-[#0f172a] font-mono">$-</span>
+                        <div class="bg-white p-3 rounded border border-[#e2e8f0] grid grid-cols-2 gap-2">
+                            <div>
+                                <span class="block text-[9px] font-bold text-[#94a3b8] uppercase tracking-wider mb-0.5">Base Price</span>
+                                <span id="compPrice" class="text-sm font-semibold text-[#475569] font-mono">$-</span>
+                            </div>
+                            <div>
+                                <span class="block text-[9px] font-bold text-red-700 uppercase tracking-wider mb-0.5">Total CapEx</span>
+                                <span id="compTotalPrice" class="text-sm font-bold text-red-700 font-mono">$-</span>
+                            </div>
                         </div>
 
                         <div class="bg-white p-3 rounded border border-[#e2e8f0]">
@@ -231,6 +248,11 @@
                                 <span>POS Device Rental:</span>
                                 <span id="compPosRental" class="font-mono text-[#334155] font-semibold">$0</span>
                             </div>
+                        </div>
+
+                        <div class="bg-white p-3 rounded border border-[#e2e8f0]">
+                            <span class="block text-[9px] font-bold text-red-600 uppercase tracking-wider mb-0.5">Net Profit (Monthly)</span>
+                            <span id="compNetProfit" class="text-base font-bold text-red-950 font-mono">$0</span>
                         </div>
 
                         <div class="bg-[#fef2f2] p-4 rounded border-l-4 border-red-600 shadow-2xs">
@@ -278,8 +300,12 @@
                 Gross Revenue = Daily Foot Traffic &times; (Traffic Conversion Rate / 100) &times; Average Item Price &times; Items Per Order &times; 30 Days
             </p>
             <p>
-                <strong class="text-[#334155]">2. Payback Period Formula:</strong><br>
-                Payback Period = (Product Price &times; Device Units) / [ (Gross Revenue &times; Profit Margin / 100) &minus; Platform Fee &minus; Transaction Fee &minus; Cellular Data Fee &minus; POS Device Rental Fee ]
+                <strong class="text-[#334155]">2. Net Profit (Monthly) Formula:</strong><br>
+                Net Profit = (Gross Revenue &times; Profit Margin / 100) &minus; Platform Fee &minus; Transaction Fee &minus; Cellular Data Fee &minus; POS Device Rental Fee
+            </p>
+            <p>
+                <strong class="text-[#334155]">3. Payback Period Formula:</strong><br>
+                Payback Period = (Product Price &times; Device Units) / [ (Gross Revenue &times; Profit Margin / 100) &minus; Platform Fee &times; Device Units &minus; Transaction Fee &times; Device Units &minus; Cellular Data Fee &times; Device Units &minus; POS Device Rental Fee &times; Device Units ]
             </p>
         </div>
 
@@ -375,7 +401,7 @@
         };
 
         // =========================================================================
-        // 【UI 节点初始化及事件绑定】
+        // 【UI 主框架事件绑定】
         // =========================================================================
         const modelSelect = document.getElementById('productModel');
         Object.keys(productDatabase).forEach(model => {
@@ -394,7 +420,6 @@
         const competitorSelect = document.getElementById('competitorName');
         const manualCompPriceInput = document.getElementById('manualCompPrice');
 
-        // 【设备数量步进控制逻辑】
         document.getElementById('btnMinus').addEventListener('click', () => {
             let val = parseInt(deviceUnitsInput.value) || 1;
             if (val > 1) { deviceUnitsInput.value = val - 1; calculate(); }
@@ -410,7 +435,6 @@
             calculate();
         });
 
-        // 【滑块颜色填充渲染机制】
         function updateSliderTrackBackground(el) {
             const min = el.min || 0;
             const max = el.max || 100;
@@ -429,12 +453,12 @@
         }
 
         // =========================================================================
-        // 【核心财务核算层 - 双引擎计算结构】
+        // 【核心财务核算层 - 双核联动计算结构】
         // =========================================================================
         function calculate() {
             updateLabels();
 
-            // 1. 获取共享业务自变量
+            // 1. 获取全局自变量指标
             const deviceUnits = parseInt(deviceUnitsInput.value) || 1;
             const traffic = parseFloat(elements.dailyTraffic.value);
             const conversion = parseFloat(elements.conversionRate.value); 
@@ -442,68 +466,84 @@
             const itemsPerOrder = parseFloat(elements.itemsPerOrder.value);
             const margin = parseFloat(elements.profitMargin.value);
 
-            // 2. 共享基础月度总营业额主公式
+            // 2. 月度基础总营业额公式
             const globalGrossRevenue = traffic * (conversion / 100) * itemPrice * itemsPerOrder * 30;
 
             // ==========================================
-            // 【引擎 A : HAHA 财务计算结构】
+            // 【引擎 A : HAHA 品牌指标模型】
             // ==========================================
             const currentHahaModel = modelSelect.value;
             const hahaProductPrice = productDatabase[currentHahaModel].price;
+            const hahaTotalCapEx = hahaProductPrice * deviceUnits; // 产品总价公式
+
             document.getElementById('hahaPrice').textContent = '$' + hahaProductPrice.toLocaleString();
+            document.getElementById('hahaTotalPrice').textContent = '$' + hahaTotalCapEx.toLocaleString();
             document.getElementById('hahaGrossRevenue').textContent = '$' + Math.round(globalGrossRevenue).toLocaleString();
 
-            const hahaPlatform = 15;
-            const hahaData = 15;
-            const hahaPosRental = 10;
-            const hahaTx = 30 * (itemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
+            // 基础固定资费乘以设备数
+            const hahaPlatform = 15 * deviceUnits;
+            const hahaData = 15 * deviceUnits;
+            const hahaPosRental = 10 * deviceUnits;
+            // 交易费公式（按要求同时乘以设备数）
+            const hahaTx = 30 * (itemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100) * deviceUnits;
 
+            document.getElementById('hahaPlatformFee').textContent = '$' + Math.round(hahaPlatform).toLocaleString();
             document.getElementById('hahaTxFee').textContent = '$' + Math.round(hahaTx).toLocaleString();
+            document.getElementById('hahaDataFee').textContent = '$' + Math.round(hahaData).toLocaleString();
+            document.getElementById('hahaPosRental').textContent = '$' + Math.round(hahaPosRental).toLocaleString();
 
-            // 净分母测算 (扣除变动与固定OpEx费用)
-            const hahaNetDenominator = (globalGrossRevenue * (margin / 100)) - hahaPlatform - hahaTx - hahaData - hahaPosRental;
-            if (hahaNetDenominator <= 0 || isNaN(hahaNetDenominator)) {
+            // 计算 HAHA 净利润
+            const hahaNetProfit = (globalGrossRevenue * (margin / 100)) - hahaPlatform - hahaTx - hahaData - hahaPosRental;
+            document.getElementById('hahaNetProfit').textContent = '$' + Math.round(hahaNetProfit).toLocaleString();
+
+            // 计算 HAHA 回本周期
+            if (hahaNetProfit <= 0 || isNaN(hahaNetProfit)) {
                 document.getElementById('hahaPayback').textContent = 'N/A';
             } else {
-                const hahaPayback = (hahaProductPrice * deviceUnits) / hahaNetDenominator;
-                // 【优化优化】：输出调整为保留 1 位小数
+                const hahaPayback = hahaTotalCapEx / hahaNetProfit;
                 document.getElementById('hahaPayback').textContent = hahaPayback.toFixed(1) + ' Months';
             }
 
             // ==========================================
-            // 【引擎 B : 竞争对手差异化财务核算】
+            // 【引擎 B : 竞争对手指标模型】
             // ==========================================
             const currentCompName = competitorSelect.value;
             document.getElementById('compHeaderTitle').textContent = currentCompName;
 
             const compProductPrice = parseFloat(manualCompPriceInput.value) || 0;
+            const compTotalCapEx = compProductPrice * deviceUnits; // 竞企产品总价
+
             document.getElementById('compPrice').textContent = '$' + compProductPrice.toLocaleString();
+            document.getElementById('compTotalPrice').textContent = '$' + compTotalCapEx.toLocaleString();
             document.getElementById('compGrossRevenue').textContent = '$' + Math.round(globalGrossRevenue).toLocaleString();
 
-            // 条件索引读取竞企特定的动态表达式
             const compProfile = competitorProfiles[currentCompName];
-            const compPlatform = compProfile.platform;
-            const compPosRental = compProfile.posRental;
-            const compData = compProfile.getDataFee(traffic, conversion);
-            const compTx = compProfile.getTxFee(itemPrice, itemsPerOrder, traffic, conversion);
+            
+            // 基础资费乘以设备数计算机制
+            const compPlatform = compProfile.platform * deviceUnits;
+            const compPosRental = compProfile.posRental * deviceUnits;
+            const compData = compProfile.getDataFee(traffic, conversion) * deviceUnits;
+            const compTx = compProfile.getTxFee(itemPrice, itemsPerOrder, traffic, conversion) * deviceUnits;
 
-            // 实时将变动结果同步到界面看板 (其余OpEx开销项依旧使用四舍五入取整呈现)
             document.getElementById('compPlatformFee').textContent = '$' + Math.round(compPlatform).toLocaleString();
             document.getElementById('compTxFee').textContent = '$' + Math.round(compTx).toLocaleString();
             document.getElementById('compDataFee').textContent = '$' + Math.round(compData).toLocaleString();
             document.getElementById('compPosRental').textContent = '$' + Math.round(compPosRental).toLocaleString();
 
-            const compNetDenominator = (globalGrossRevenue * (margin / 100)) - compPlatform - compTx - compData - compPosRental;
-            if (compNetDenominator <= 0 || isNaN(compNetDenominator)) {
+            // 计算竞企净利润
+            const compNetProfit = (globalGrossRevenue * (margin / 100)) - compPlatform - compTx - compData - compPosRental;
+            document.getElementById('compNetProfit').textContent = '$' + Math.round(compNetProfit).toLocaleString();
+
+            // 计算竞企回本周期
+            if (compNetProfit <= 0 || isNaN(compNetProfit)) {
                 document.getElementById('compPayback').textContent = 'N/A';
             } else {
-                const compPayback = (compProductPrice * deviceUnits) / compNetDenominator;
-                // 【优化优化】：输出调整为保留 1 位小数
+                const compPayback = compTotalCapEx / compNetProfit;
                 document.getElementById('compPayback').textContent = compPayback.toFixed(1) + ' Months';
             }
         }
 
-        // 绑定动作触发器
+        // 绑定输入驱动触发器
         modelSelect.addEventListener('change', calculate);
         competitorSelect.addEventListener('change', calculate);
         manualCompPriceInput.addEventListener('input', calculate);
@@ -511,7 +551,7 @@
             elements[id].addEventListener('input', calculate);
         });
 
-        // 首次挂载初始化
+        // 初始化首次执行
         calculate();
     </script>
 </body>
