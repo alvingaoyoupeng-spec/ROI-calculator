@@ -273,12 +273,12 @@
                     <select id="competitorName" class="w-full bg-[#f8fafc] border border-[#cbd5e1] rounded text-[#0f172a] font-medium px-2.5 py-2 focus:ring-1 focus:ring-[#0f172a] focus:border-[#0f172a] focus:outline-none text-xs transition-all">
                         <option value="Micromart">Micromart</option>
                         <option value="365 retail markets">365 retail markets</option>
-                        -----<option value="Vendera">Vendera</option>------
-                        -----<option value="Qingo">Qingo</option>-----
-                        -----<option value="XMAI">XMAI</option>-----
+                        <option value="Vendera" style="display: none;">Vendera</option>
+                        <option value="Qingo" style="display: none;">Qingo</option>
+                        <option value="XMAI" style="display: none;">XMAI</option>
                         <option value="Sandstar">Sandstar</option>
-                        -----<option value="TCN">TCN</option>-----
-                        -----<option value="Grabot">Grabot</option>-----
+                        <option value="TCN" style="display: none;">TCN</option>
+                        <option value="Grabot" style="display: none;">Grabot</option>
                     </select>
                 </div>
 
@@ -297,19 +297,16 @@
             </div>
             <p>
                 <strong class="text-[#334155]">1. Gross Revenue (Monthly) Formula:</strong><br>
-                Gross Revenue = Daily Foot Traffic &times; Traffic Conversion Rate &times; Average Item Price &times; Items Per Order &times; 30 Days
+                Gross Revenue = Daily Foot Traffic &times; (Traffic Conversion Rate / 100) &times; Average Item Price &times; Items Per Order &times; 30 Days
             </p>
             <p>
                 <strong class="text-[#334155]">2. Net Profit (Monthly) Formula:</strong><br>
-                Net Profit = Gross Revenue &times; Profit Margin &minus; Platform Fee &minus; Transaction Fee &minus; Cellular Data Fee &minus; POS Device Rental Fee
+                Net Profit = (Gross Revenue &times; Profit Margin / 100) &minus; Platform Fee &minus; Transaction Fee &minus; Cellular Data Fee &minus; POS Device Rental Fee
             </p>
             <p>
                 <strong class="text-[#334155]">3. Payback Period Formula:</strong><br>
                 Payback Period = (Product Price &times; Device Units) / Net Profit <br>
-                <span class="text-[#94a3b8] block mt-0.5 ml-3">
-               ※Notes: <br>
-                ①This ROI calculation model does not account for labor or operational costs (e.g., driver wages, fuel, and restocking fees) and is for reference only.<br>
-                 ②Actual ROI is driven by multiple variables, including location foot traffic, conversion rates, average order value (AOV), and product net profit margins.</span>
+                <span class="text-[10px] text-[#94a3b8] block mt-0.5 ml-3">※ Where Platform, Cellular Data, and POS Rental Fees scale with Device Units, while Transaction Fees scale strictly with sales volume.</span>
             </p>
         </div>
 
@@ -354,30 +351,9 @@
                     return 30 * (avgItemPrice * itemsPerOrder * 0.0575) * traffic * (conversion / 100);
                 }
             },
-            "Vendera": {
-                platform: 15,
-                posRental: 10,
-                getDataFee: () => 15,
-                getTxFee: (avgItemPrice, itemsPerOrder, traffic, conversion) => {
-                    return 30 * (avgItemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
-                }
-            },
-            "Qingo": {
-                platform: 15,
-                posRental: 10,
-                getDataFee: () => 15,
-                getTxFee: (avgItemPrice, itemsPerOrder, traffic, conversion) => {
-                    return 30 * (avgItemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
-                }
-            },
-            "XMAI": {
-                platform: 10,
-                posRental: 14,
-                getDataFee: () => 15,
-                getTxFee: (avgItemPrice, itemsPerOrder, traffic, conversion) => {
-                    return 30 * (avgItemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
-                }
-            },
+            "Vendera": { platform: 15, posRental: 10, getDataFee: () => 15, getTxFee: (p, i, t, c) => 30*(p*i*0.0595)*t*c },
+            "Qingo": { platform: 15, posRental: 10, getDataFee: () => 15, getTxFee: (p, i, t, c) => 30*(p*i*0.0595)*t*c },
+            "XMAI": { platform: 10, posRental: 14, getDataFee: () => 15, getTxFee: (p, i, t, c) => 30*(p*i*0.0595)*t*c },
             "Sandstar": {
                 platform: 65,
                 posRental: 0,
@@ -386,22 +362,8 @@
                     return 30 * (avgItemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
                 }
             },
-            "TCN": {
-                platform: 12,
-                posRental: 10,
-                getDataFee: () => 10,
-                getTxFee: (avgItemPrice, itemsPerOrder, traffic, conversion) => {
-                    return 30 * (avgItemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
-                }
-            },
-            "Grabot": {
-                platform: 35.2833,
-                posRental: 0,
-                getDataFee: () => 0,
-                getTxFee: (avgItemPrice, itemsPerOrder, traffic, conversion) => {
-                    return 30 * (avgItemPrice * itemsPerOrder * 0.055 + 0.0353) * traffic * (conversion / 100);
-                }
-            }
+            "TCN": { platform: 12, posRental: 10, getDataFee: () => 10, getTxFee: (p, i, t, c) => 30*(p*i*0.0595)*t*c },
+            "Grabot": { platform: 35.2833, posRental: 0, getDataFee: () => 0, getTxFee: (p, i, t, c) => 30*(p*i*0.055+0.0353)*t*c }
         };
 
         // =========================================================================
@@ -457,12 +419,11 @@
         }
 
         // =========================================================================
-        // 【核心财务核算层 - 双核联动计算结构】
+        // 【核心财务核算层】
         // =========================================================================
         function calculate() {
             updateLabels();
 
-            // 1. 获取全局自变量指标
             const deviceUnits = parseInt(deviceUnitsInput.value) || 1;
             const traffic = parseFloat(elements.dailyTraffic.value);
             const conversion = parseFloat(elements.conversionRate.value); 
@@ -470,12 +431,9 @@
             const itemsPerOrder = parseFloat(elements.itemsPerOrder.value);
             const margin = parseFloat(elements.profitMargin.value);
 
-            // 2. 月度基础总营业额公式
             const globalGrossRevenue = traffic * (conversion / 100) * itemPrice * itemsPerOrder * 30;
 
-            // ==========================================
-            // 【引擎 A : HAHA 品牌指标模型】
-            // ==========================================
+            // HAHA 引擎
             const currentHahaModel = modelSelect.value;
             const hahaProductPrice = productDatabase[currentHahaModel].price;
             const hahaTotalCapEx = hahaProductPrice * deviceUnits;
@@ -484,12 +442,9 @@
             document.getElementById('hahaTotalPrice').textContent = '$' + hahaTotalCapEx.toLocaleString();
             document.getElementById('hahaGrossRevenue').textContent = '$' + Math.round(globalGrossRevenue).toLocaleString();
 
-            // 基础固定资费乘以设备数
             const hahaPlatform = 15 * deviceUnits;
             const hahaData = 15 * deviceUnits;
             const hahaPosRental = 10 * deviceUnits;
-            
-            // 【优化修改】：交易费独立出来，不再乘以设备数
             const hahaTx = 30 * (itemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
 
             document.getElementById('hahaPlatformFee').textContent = '$' + Math.round(hahaPlatform).toLocaleString();
@@ -497,11 +452,9 @@
             document.getElementById('hahaDataFee').textContent = '$' + Math.round(hahaData).toLocaleString();
             document.getElementById('hahaPosRental').textContent = '$' + Math.round(hahaPosRental).toLocaleString();
 
-            // 计算 HAHA 净利润
             const hahaNetProfit = (globalGrossRevenue * (margin / 100)) - hahaPlatform - hahaTx - hahaData - hahaPosRental;
             document.getElementById('hahaNetProfit').textContent = '$' + Math.round(hahaNetProfit).toLocaleString();
 
-            // 计算 HAHA 回本周期
             if (hahaNetProfit <= 0 || isNaN(hahaNetProfit)) {
                 document.getElementById('hahaPayback').textContent = 'N/A';
             } else {
@@ -509,9 +462,7 @@
                 document.getElementById('hahaPayback').textContent = hahaPayback.toFixed(1) + ' Months';
             }
 
-            // ==========================================
-            // 【引擎 B : 竞争对手指标模型】
-            // ==========================================
+            // 竞企引擎
             const currentCompName = competitorSelect.value;
             document.getElementById('compHeaderTitle').textContent = currentCompName;
 
@@ -523,13 +474,9 @@
             document.getElementById('compGrossRevenue').textContent = '$' + Math.round(globalGrossRevenue).toLocaleString();
 
             const compProfile = competitorProfiles[currentCompName];
-            
-            // 基础资费乘以设备数计算机制
             const compPlatform = compProfile.platform * deviceUnits;
             const compPosRental = compProfile.posRental * deviceUnits;
             const compData = compProfile.getDataFee(traffic, conversion) * deviceUnits;
-            
-            // 【优化修改】：交易费独立出来，不再乘以设备数
             const compTx = compProfile.getTxFee(itemPrice, itemsPerOrder, traffic, conversion);
 
             document.getElementById('compPlatformFee').textContent = '$' + Math.round(compPlatform).toLocaleString();
@@ -537,11 +484,9 @@
             document.getElementById('compDataFee').textContent = '$' + Math.round(compData).toLocaleString();
             document.getElementById('compPosRental').textContent = '$' + Math.round(compPosRental).toLocaleString();
 
-            // 计算竞企净利润
             const compNetProfit = (globalGrossRevenue * (margin / 100)) - compPlatform - compTx - compData - compPosRental;
             document.getElementById('compNetProfit').textContent = '$' + Math.round(compNetProfit).toLocaleString();
 
-            // 计算竞企回本周期
             if (compNetProfit <= 0 || isNaN(compNetProfit)) {
                 document.getElementById('compPayback').textContent = 'N/A';
             } else {
@@ -550,15 +495,11 @@
             }
         }
 
-        // 绑定输入驱动触发器
         modelSelect.addEventListener('change', calculate);
         competitorSelect.addEventListener('change', calculate);
         manualCompPriceInput.addEventListener('input', calculate);
-        inputs.forEach(id => {
-            elements[id].addEventListener('input', calculate);
-        });
+        inputs.forEach(id => elements[id].addEventListener('input', calculate));
 
-        // 初始化首次执行
         calculate();
     </script>
 </body>
