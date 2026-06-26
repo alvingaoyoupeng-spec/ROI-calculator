@@ -116,25 +116,13 @@
 
                 <div class="space-y-1.5">
                     <div class="flex justify-between items-baseline">
-                        <span class="text-[10px] font-bold text-[#475569] uppercase tracking-wider">Average item price</span>
-                        <span id="v_itemPrice" class="text-xs font-bold text-[#0f172a]">$3</span>
+                        <span class="text-[10px] font-bold text-[#475569] uppercase tracking-wider">Average Ticket</span>
+                        <span id="v_averageTicket" class="text-xs font-bold text-[#0f172a]">$6</span>
                     </div>
-                    <input type="range" id="itemPrice" min="0" max="15" step="0.5" value="3" class="cursor-pointer">
+                    <input type="range" id="averageTicket" min="0" max="100" step="1" value="6" class="cursor-pointer">
                     <div class="flex justify-between text-[9px] text-[#94a3b8] font-medium px-0.5">
                         <span>$0</span>
-                        <span>$15</span>
-                    </div>
-                </div>
-
-                <div class="space-y-1.5">
-                    <div class="flex justify-between items-baseline">
-                        <span class="text-[10px] font-bold text-[#475569] uppercase tracking-wider">Items per order</span>
-                        <span id="v_itemsPerOrder" class="text-xs font-bold text-[#0f172a]">2</span>
-                    </div>
-                    <input type="range" id="itemsPerOrder" min="0" max="3" step="1" value="2" class="cursor-pointer">
-                    <div class="flex justify-between text-[9px] text-[#94a3b8] font-medium px-0.5">
-                        <span>0</span>
-                        <span>3</span>
+                        <span>$100</span>
                     </div>
                 </div>
 
@@ -297,7 +285,7 @@
             </div>
             <p>
                 <strong class="text-[#334155]">1. Gross Revenue (Monthly) Formula:</strong><br>
-                Gross Revenue = Daily Foot Traffic &times; (Traffic Conversion Rate / 100) &times; Average Item Price &times; Items Per Order &times; 30 Days
+                Gross Revenue = Daily Foot Traffic &times; (Traffic Conversion Rate / 100) &times; Average Ticket &times; 30 Days
             </p>
             <p>
                 <strong class="text-[#334155]">2. Net Profit (Monthly) Formula:</strong><br>
@@ -306,16 +294,13 @@
             <p>
                 <strong class="text-[#334155]">3. Payback Period Formula:</strong><br>
                 Payback Period = (Product Price &times; Device Units) / Net Profit <br>
-                <span class="text-[10px] text-[#94a3b8] block mt-0.5 ml-3">※ Where Platform, Cellular Data, and POS Rental Fees scale with Device Units, while Transaction Fees scale strictly with sales volume.</span>
+                <span class="text-[10px] text-[#94a3b8] block mt-0.5 ml-3">※ Where Platform, Cellular Data, and POS Rental Fees scale with Device Units, while Transaction Fees map strictly against product processing configurations.</span>
             </p>
         </div>
 
     </div>
 
     <script>
-        // =========================================================================
-        // 【管理员后台产品档案维护区】
-        // =========================================================================
         const productDatabase = {
             "Mini 360":    { price: 2999 },
             "Pluss 440":   { price: 3499 },
@@ -328,47 +313,39 @@
         };
         const defaultProduct = "Mini 360";
 
-        // =========================================================================
-        // 【竞企资费配置数据库机制】
-        // =========================================================================
         const competitorProfiles = {
             "Micromart": {
                 platform: 60,
                 posRental: 0,
                 getDataFee: (traffic, conversion) => 20 + 0.05 * traffic * (conversion / 100),
-                getTxFee: (avgItemPrice, itemsPerOrder, traffic, conversion) => {
-                    const ticketSize = avgItemPrice * itemsPerOrder;
-                    const rate = 0.04;
-                    const fixed = ticketSize < 8 ? 0.10 : 0.15;
-                    return 30 * (ticketSize * rate + fixed) * traffic * (conversion / 100);
+                getTxFee: (averageTicket, traffic, conversion) => {
+                    const fixed = averageTicket < 8 ? 0.10 : 0.15;
+                    return 30 * (averageTicket * 0.04 + fixed) * traffic * (conversion / 100);
                 }
             },
             "365 retail markets": {
                 platform: 90,
                 posRental: 0,
                 getDataFee: () => 10,
-                getTxFee: (avgItemPrice, itemsPerOrder, traffic, conversion) => {
-                    return 30 * (avgItemPrice * itemsPerOrder * 0.0575) * traffic * (conversion / 100);
+                getTxFee: (averageTicket, traffic, conversion) => {
+                    return 30 * (averageTicket * 0.0575) * traffic * (conversion / 100);
                 }
             },
-            "Vendera": { platform: 15, posRental: 10, getDataFee: () => 15, getTxFee: (p, i, t, c) => 30*(p*i*0.0595)*t*c },
-            "Qingo": { platform: 15, posRental: 10, getDataFee: () => 15, getTxFee: (p, i, t, c) => 30*(p*i*0.0595)*t*c },
-            "XMAI": { platform: 10, posRental: 14, getDataFee: () => 15, getTxFee: (p, i, t, c) => 30*(p*i*0.0595)*t*c },
+            "Vendera": { platform: 15, posRental: 10, getDataFee: () => 15, getTxFee: (avT, t, c) => 30*(avT*0.0595)*t*(c/100) },
+            "Qingo": { platform: 15, posRental: 10, getDataFee: () => 15, getTxFee: (avT, t, c) => 30*(avT*0.0595)*t*(c/100) },
+            "XMAI": { platform: 10, posRental: 14, getDataFee: () => 15, getTxFee: (avT, t, c) => 30*(avT*0.0595)*t*(c/100) },
             "Sandstar": {
                 platform: 65,
                 posRental: 0,
                 getDataFee: () => 0,
-                getTxFee: (avgItemPrice, itemsPerOrder, traffic, conversion) => {
-                    return 30 * (avgItemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
+                getTxFee: (averageTicket, traffic, conversion) => {
+                    return 30 * (averageTicket * 0.0595) * traffic * (conversion / 100);
                 }
             },
-            "TCN": { platform: 12, posRental: 10, getDataFee: () => 10, getTxFee: (p, i, t, c) => 30*(p*i*0.0595)*t*c },
-            "Grabot": { platform: 35.2833, posRental: 0, getDataFee: () => 0, getTxFee: (p, i, t, c) => 30*(p*i*0.055+0.0353)*t*c }
+            "TCN": { platform: 12, posRental: 10, getDataFee: () => 10, getTxFee: (avT, t, c) => 30*(avT*0.0595)*t*(c/100) },
+            "Grabot": { platform: 35.2833, posRental: 0, getDataFee: () => 0, getTxFee: (avT, t, c) => 30*(avT*0.055+0.0353)*t*(c/100) }
         };
 
-        // =========================================================================
-        // 【UI 主框架事件绑定】
-        // =========================================================================
         const modelSelect = document.getElementById('productModel');
         Object.keys(productDatabase).forEach(model => {
             const option = document.createElement('option');
@@ -378,7 +355,7 @@
             modelSelect.appendChild(option);
         });
 
-        const inputs = ['dailyTraffic', 'conversionRate', 'itemPrice', 'itemsPerOrder', 'profitMargin'];
+        const inputs = ['dailyTraffic', 'conversionRate', 'averageTicket', 'profitMargin'];
         const elements = {};
         inputs.forEach(id => elements[id] = document.getElementById(id));
         
@@ -412,28 +389,24 @@
         function updateLabels() {
             document.getElementById('v_dailyTraffic').textContent = elements.dailyTraffic.value;
             document.getElementById('v_conversionRate').textContent = elements.conversionRate.value + '%';
-            document.getElementById('v_itemPrice').textContent = '$' + elements.itemPrice.value;
-            document.getElementById('v_itemsPerOrder').textContent = elements.itemsPerOrder.value;
+            document.getElementById('v_averageTicket').textContent = '$' + elements.averageTicket.value;
             document.getElementById('v_profitMargin').textContent = elements.profitMargin.value + '%';
             inputs.forEach(id => updateSliderTrackBackground(elements[id]));
         }
 
-        // =========================================================================
-        // 【核心财务核算层】
-        // =========================================================================
         function calculate() {
             updateLabels();
 
             const deviceUnits = parseInt(deviceUnitsInput.value) || 1;
             const traffic = parseFloat(elements.dailyTraffic.value);
             const conversion = parseFloat(elements.conversionRate.value); 
-            const itemPrice = parseFloat(elements.itemPrice.value);
-            const itemsPerOrder = parseFloat(elements.itemsPerOrder.value);
+            const averageTicket = parseFloat(elements.averageTicket.value);
             const margin = parseFloat(elements.profitMargin.value);
 
-            const globalGrossRevenue = traffic * (conversion / 100) * itemPrice * itemsPerOrder * 30;
+            // Unified Gross Revenue Matrix Calculation
+            const globalGrossRevenue = traffic * (conversion / 100) * averageTicket * 30;
 
-            // HAHA 引擎
+            // HAHA Strategy Outputs
             const currentHahaModel = modelSelect.value;
             const hahaProductPrice = productDatabase[currentHahaModel].price;
             const hahaTotalCapEx = hahaProductPrice * deviceUnits;
@@ -445,7 +418,7 @@
             const hahaPlatform = 15 * deviceUnits;
             const hahaData = 15 * deviceUnits;
             const hahaPosRental = 10 * deviceUnits;
-            const hahaTx = 30 * (itemPrice * itemsPerOrder * 0.0595) * traffic * (conversion / 100);
+            const hahaTx = 30 * (averageTicket * 0.0595) * traffic * (conversion / 100);
 
             document.getElementById('hahaPlatformFee').textContent = '$' + Math.round(hahaPlatform).toLocaleString();
             document.getElementById('hahaTxFee').textContent = '$' + Math.round(hahaTx).toLocaleString();
@@ -462,7 +435,7 @@
                 document.getElementById('hahaPayback').textContent = hahaPayback.toFixed(1) + ' Months';
             }
 
-            // 竞企引擎
+            // Competitor Performance Yield Analysis
             const currentCompName = competitorSelect.value;
             document.getElementById('compHeaderTitle').textContent = currentCompName;
 
@@ -477,7 +450,7 @@
             const compPlatform = compProfile.platform * deviceUnits;
             const compPosRental = compProfile.posRental * deviceUnits;
             const compData = compProfile.getDataFee(traffic, conversion) * deviceUnits;
-            const compTx = compProfile.getTxFee(itemPrice, itemsPerOrder, traffic, conversion);
+            const compTx = compProfile.getTxFee(averageTicket, traffic, conversion);
 
             document.getElementById('compPlatformFee').textContent = '$' + Math.round(compPlatform).toLocaleString();
             document.getElementById('compTxFee').textContent = '$' + Math.round(compTx).toLocaleString();
